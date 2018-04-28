@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1/imageupload");
+mongoose.connect("mongodb://nanaKwame:adomako21@ds157320.mlab.com:57320/image-upload");
 
 var mongoSchema = mongoose.Schema;
 
