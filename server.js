@@ -135,7 +135,7 @@ app.post('/watsonHospitals', function (req, res) {
     discovery.query({
         environment_id: "4c5591b0-8aff-4b82-852c-d77e287b5375",
         collection_id: "b93af730-e0d9-4df2-ad1a-1a85a21fb1d4",
-        query:   req.body.name + " services"
+        query:   req.body.diagnosis + " services"
     },
         function (err, response) {
             if (err) {
