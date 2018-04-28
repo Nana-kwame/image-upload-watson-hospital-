@@ -27,9 +27,8 @@ var upload = multer({ storage: storage })
 
 app.use(cors());
 
-app.listen(process.env.PORT || 30000, function () {
-    console.log("Server is up and running on port 30000");
-})
+app.listen(process.env.PORT || 30000)
+console.log("it is running");
 
 app.post('/images', upload.single('image'), (req, res, next) => {
 
