@@ -75,6 +75,7 @@ app.get('/images/:id', (req, res, next) => {
         if (image) {
             // stream the image back by loading the file
 
+            console.log(image)
             res.setHeader('Content-Type', 'image/jpeg');
             fs.createReadStream(path.join(UPLOAD_PATH, image.filename)).pipe(res);
             
