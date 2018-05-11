@@ -26,7 +26,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 app.use(cors());
-
+app.use(express.static('uploads'));
 app.listen(process.env.PORT || 30000)
 console.log("it is running");
 
@@ -77,14 +77,14 @@ app.get('/images/:id', (req, res, next) => {
 
             res.setHeader('Content-Type', 'image/jpeg');
             fs.createReadStream(path.join(UPLOAD_PATH, image.filename)).pipe(res);
-            console.log(image);
+            
         }
 
     })
 });
 
 app.get('/image/:hosID', (req, res, next) => {
-    Image.findOne({hosID: req.params.hosID}).select(" _id  desc originalName filename _v created")
+    Image.findOne({hosID: req.params.hosID}).select(" _id  desc originalName filename _v created url")
     .exec((err, image) => {
         if(err){
             return next (err);
@@ -94,11 +94,25 @@ app.get('/image/:hosID', (req, res, next) => {
         } else {
             res.setHeader('Content-Type', 'image/jpeg');
             fs.createReadStream(path.join(UPLOAD_PATH, image.filename)).pipe(res);
-            console.log(image);
         }
     })
     
     })
+
+    // Delete one image by its ID
+app.delete('/images/:id', (req, res, next) => {
+    let imgId = req.params.id;
+ 
+    Image.findByIdAndRemove(imgId, (err, image) => {
+        if (err && image) {
+            res.sendStatus(400);
+        }
+ 
+        del([path.join(UPLOAD_PATH, image.filename)]).then(deleted => {
+            res.sendStatus(200);
+        })
+    })
+});
 
 
 
@@ -108,6 +122,7 @@ var logger = require('morgan');
 var methodOverride = require('method-override')
 
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(methodOverride());
 
