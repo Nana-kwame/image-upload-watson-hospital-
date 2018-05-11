@@ -90,11 +90,11 @@ app.get('/image/:hosID', (req, res, next) => {
         if(err){
             return next (err);
         }
-        if(!image){
-            res.json({success:false, message: "image not found"});
-        } else {
+        if(image){
+            console.log(image)
             res.setHeader('Content-Type', 'image/jpeg');
             fs.createReadStream(path.join(UPLOAD_PATH, image.filename)).pipe(res);
+            
         }
     })
     
