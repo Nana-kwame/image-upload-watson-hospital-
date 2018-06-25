@@ -169,7 +169,7 @@ app.post('/watsonHospitals', function (req, res) {
 
                 cats.forEach(function(cat){
                     console.log(cat.enriched_text.entities);
-                    var myAnswers= cat.enriched_text.entities               
+                    var myAnswers= cat.enriched_text.entities.slice(5,30)               
                     myAnswers.forEach(function(entity){
                         foobar += "\n"+JSON.stringify(entity.text).replace(/\"/g, "");    
                         
