@@ -27,8 +27,8 @@ var upload = multer({ storage: storage })
 
 app.use(cors());
 app.use(express.static('uploads'));
-app.listen(process.env.PORT || 30000)
-console.log("it is running");
+app.listen(process.env.PORT || 3030)
+console.log("it is running 3030");
 
 app.post('/images', upload.single('image'), (req, res, next) => {
 
@@ -177,7 +177,7 @@ app.post('/watsonHospitals', function (req, res) {
                     }, 2)
                 })
                 console.log(foobar);
-                res.json(foobar, null, 5);
+                res.json(foobar,);
             }
         }
     )
